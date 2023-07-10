@@ -44,3 +44,5 @@ def main():
     app.exec_()
 
 main()
+#hej decki evo neka promjena
+print('hello')
