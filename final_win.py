@@ -81,7 +81,6 @@ class FinalWin(QWidget):
             else:
                 return txt_res5
 
-
     def initUI(self):
         self.work_text = QLabel(txt_workheart + self.results())
         self.index_text = QLabel(txt_index + str(self.index))

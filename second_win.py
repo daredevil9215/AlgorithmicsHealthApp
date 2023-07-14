@@ -15,13 +15,20 @@ class Experiment():
         self.t2 = test2
         self.t3 = test3
 
+# Testwin je jos jedan sin od QWidgeta
 class TestWin(QWidget):
    
+   # Konstruktor (kada se prozor upali)
     def __init__(self):
+        # Prvo zovemo konstruktor od tate
         super().__init__()
-        self.initUI()
-        self.connects()
+        # Postavljamo izgled prozora
         self.set_appear()
+        # Pokrecemo elemente prozora(tekst, gumbe...)
+        self.initUI()
+        # Connects sluzi za spajanje gumba sa odredenom funkcijom
+        self.connects()
+        # Show moramo pozvati da se prozor vidi
         self.show()
 
     def set_appear(self):
@@ -29,31 +36,39 @@ class TestWin(QWidget):
         self.resize(win_width, win_height)
         self.move(win_x, win_y)
 
+    # Elementi na ekranu
     def initUI(self):
+        # Prvo se stvaraju gumbi
         self.btn_next = QPushButton(txt_sendresults, self)
         self.btn_test1 = QPushButton(txt_starttest1, self)
         self.btn_test2 = QPushButton(txt_starttest2, self)
         self.btn_test3 = QPushButton(txt_starttest3, self)
 
+        # Stvaramo 6 labelova (tekstova)
         self.text_name = QLabel(txt_name)
         self.text_age = QLabel(txt_age)
         self.text_test1 = QLabel(txt_test1)
         self.text_test2 = QLabel(txt_test2)
         self.text_test3 = QLabel(txt_test3)
         self.text_timer = QLabel(txt_timer)
+        # Na timer postavljamo font
         self.text_timer.setFont(QFont("Times", 36, QFont.Bold))
 
+        # Stvaramo kucice za upisivanje podataka (LineEdit)
         self.line_name = QLineEdit(txt_hintname)
         self.line_age = QLineEdit(txt_hintage)
         self.line_test1 = QLineEdit(txt_hinttest1)
         self.line_test2 = QLineEdit(txt_hinttest2)
         self.line_test3 = QLineEdit(txt_hinttest3)
 
+        # Imamo dva vertical boxa i jedan horizontal box
         self.l_line = QVBoxLayout()
         self.r_line = QVBoxLayout()
         self.h_line = QHBoxLayout()
 
+        # U desnom stupcu se nalazi samo timer
         self.r_line.addWidget(self.text_timer, alignment = Qt.AlignCenter)
+        # I lijevom stupcu se nalazi sve ostalo
         self.l_line.addWidget(self.text_name, alignment = Qt.AlignLeft)
         self.l_line.addWidget(self.line_name, alignment = Qt.AlignLeft)
         self.l_line.addWidget(self.text_age, alignment = Qt.AlignLeft)
@@ -68,13 +83,15 @@ class TestWin(QWidget):
         self.l_line.addWidget(self.line_test2, alignment = Qt.AlignLeft)
         self.l_line.addWidget(self.line_test3, alignment = Qt.AlignLeft)
         self.l_line.addWidget(self.btn_next, alignment = Qt.AlignCenter)
+        # Stupce dodajemo u redak
         self.h_line.addLayout(self.l_line) 
         self.h_line.addLayout(self.r_line)    
-
+        # Postvaljamo layout na window
         self.setLayout(self.h_line)
 
     def next_click(self):
         self.hide()
+        # Klasa eksperiment se koristi za zapisivanje rezultata iz lineedita
         self.exp = Experiment(int(self.line_age.text()), self.line_test1.text(), self.line_test2.text(), self.line_test2.text())
         self.fw = FinalWin(self.exp)
 
